@@ -1,0 +1,20 @@
+h1, h2 {
+  font-family: Arial, sans-serif;
+  color: #2b2b2b;
+  }
+
+.add-expense {
+  background-color: #eaf4f4;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.your-expenses {
+  background-color: #f4eaea;
+  padding: 20px;
+}
+
+#expense-category {
+  padding: 5px;
+  margin-top: 5px;
+}
