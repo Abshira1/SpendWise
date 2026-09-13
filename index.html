@@ -9,6 +9,7 @@
     <body>
 
         <header>
+            <img src="https://cdn-icon-png.flaticon.com/512/2331966.png" alt="SpendWise logo" width="50">
             <h1>My Budget Tracker</h1>
             <p>Track your income and expenses in one place.</p>
         </header>
@@ -23,21 +24,67 @@
             <input type="number" id="expense-amount" name="expense-amount"placeholder="0.00">
 
             <label for="expense-category">Category</label>
-            <select id="expense-category" name="expense-category">
+            <select id="expense-category" name="expense-category"> 
                 <option value="food">Food</option>
                 <option value="transport">Transport</option>
-                <option value="bills">Bills</option>
+                <option value="rent">Rent</option>
+                <option value="entertainment">Entertainment</option>
                 <option value="other">Other</option> 
             </select>
                 
-            <button type="submit">Add Expense</button>
+            <button type="button">Add Expense</button>
           </form>
         </section>
 
         <section class="your-expenses">
             <h2>Your Expenses</h2>
-            <p>No expenses yet</p>
-          </section>
+            <table class="expense-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Groceries</td>
+                <td>$45.00</td>
+                <td>Food</td>
+                <td>2026-09-01</td>
+            </tr>
+            <tr>
+                <td>Bus Fare</td>
+                <td>$5.50</td>
+                <td>Transport</td>
+                <td>2026-09-02</td>
+            </tr>
+            <tr>
+                <td>Rent</td>
+                <td>$300.00</td>
+                <td>Rent</td>
+                <td>2026-09-03</td>
+            </tr>
+            <tr>
+                <td>Movie Night</td>
+                <td>$12.00</td>
+                <td>Entertainment</td>
+                <td>2026-09-05</td>
+            </tr>
+            <tr>
+                <td>Phone Airtime</td>
+                <td>$10.00</td>
+                <td>Other</td>
+                <td>2026-09-06</td>
+            </tr>
+        </tbody>
+            </table>
+            
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/HQzoZfc3GwQ" title="Budgeting Tips" frameborder="0" allowfullscreen></iframe>
+        
+        </section>
+
 
     </body>
     </html>
