@@ -13,3 +13,11 @@ SpendWise is a personal budget and expense tracker built with HTML and CSS. User
 ## Technologies Used
 -HTML5
 -CCS3 (including advanced selectors: descendant, child combinator, nth-child, hover, focus)
+
+## Visual Design (Week 3)
+This week the app was given a polished visual identity using CSS, with no changes to the HTML structure:
+
+-**Color palette**: A small, consistent set of colors (navy, teal accent, off-white background) applied across the header, buttons, and table headers.
+-**Typography**: Goole Fonts - Poppins for headings, Inter for body text, labels, and buttons - fore clear visual hierarchy.
+-**Table and form styling**: Padding, borders, a styled header row, alternating row colors, and consistent input/button styling with rounded corners.
+-**CSS Box Model**: Margin, padding, borders, and border-radius are used to make the header, Add Expense form, and Expense Table each appear as distinct visual "cards."
