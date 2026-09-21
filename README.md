@@ -1,23 +1,45 @@
-# SpendWise - personal Budget Tracker
+# SpendWise — Dashboard Shell (Week 4)
 
-## Description
-SpendWise is a personal budget and expense tracker built with HTML and CSS. Users can view a table of heir expenses and use a form to add new ones (functionality coming in a later week with JavaScript).
+This week rebuilds SpendWise's layout as a dashboard shell using CSS Grid and Flexbox, with no functionality yet — just a clean, responsive visual structure.
 
-## What Each part Does
-- **Header**: Displays the app logo and title.
--**Add Expense Section**: A form with fields for expense name, amount, and a cetegory dropdown (Food, Transport, Rent, Entertainment, Other). Include a button that will be wired up with JavaScript in Week 7.
--**Your Expenses Section**: A table showing sample expense data (name, amount, category, date), styled with alternating row colors and a hovereffect.
--**Multimedia**: Includes a logo image and an embedded YouTube video with budgeting tips.
--**How to Use Section**: A collapsible `<details>` element explaining how the form works.
+## What I built
 
-## Technologies Used
--HTML5
--CCS3 (including advanced selectors: descendant, child combinator, nth-child, hover, focus)
+- **`index.html`** — the dashboard markup: a sidebar, a header, and six category cards with static, realistic financial content (Food, Transport, Rent, Entertainment, Savings, Utilities).
+- **`style.css`** — all layout and styling, including the theme variables.
+- **`README.md`** — this file.
 
-## Visual Design (Week 3)
-This week the app was given a polished visual identity using CSS, with no changes to the HTML structure:
+## How it's structured
 
--**Color palette**: A small, consistent set of colors (navy, teal accent, off-white background) applied across the header, buttons, and table headers.
--**Typography**: Goole Fonts - Poppins for headings, Inter for body text, labels, and buttons - fore clear visual hierarchy.
--**Table and form styling**: Padding, borders, a styled header row, alternating row colors, and consistent input/button styling with rounded corners.
--**CSS Box Model**: Margin, padding, borders, and border-radius are used to make the header, Add Expense form, and Expense Table each appear as distinct visual "cards."
+### Overall layout — CSS Grid
+The `.dashboard` element is a CSS Grid with named areas:
+```
+"sidebar header"
+"sidebar main"
+```
+This lays out the sidebar down the left side and stacks the header above the main content on the right, all without any absolute positioning. On small screens (≤720px) the grid switches to a single column and stacks header → sidebar → main.
+
+### Internal arrangement — Flexbox
+- **Sidebar**: a flex column holding the brand mark, the nav links, and a footer link, so they space out evenly from top to bottom.
+- **Header**: a flex row with `justify-content: space-between`, splitting the page title on the left from the total spent, "Add Expense" button, and avatar on the right.
+- **Each card**: a flex column internally (icon/trend row, category name, amount, sub-label), while the six cards themselves sit in a CSS Grid (`repeat(auto-fit, minmax(220px, 1fr))`) so they wrap responsively.
+
+### Theme — CSS custom properties
+All colors are defined once on `:root` in `style.css` and reused throughout:
+- `--color-brand` — deep teal, used for the sidebar and primary button
+- `--color-accent` — warm gold, used for the brand mark and avatar
+- `--color-surface` — the page background
+- `--color-card` — card and header background
+- `--color-text-primary` / `--color-text-secondary` — main and muted text
+- A set of soft tint variables (`--color-food-bg`, `--color-transport-bg`, etc.) for each category icon's background
+
+### Responsive design
+A media query at `max-width: 768px` collapses the grid to a single column — the header moves to the top, followed by the sidebar, then the main content — and the card grid drops to one column per row. Verified using the browser's DevTools Device Toolbar.
+
+### Card micro-interactions
+Each card has a `transition` on `transform` and `box-shadow` (200ms, under the 250ms limit). On `:hover` and `:focus-within`, a card lifts slightly (`translateY(-4px)`) and gains a soft shadow. Cards have `tabindex="0"` so they're reachable by keyboard, and `:focus-within` also adds a visible accent-colored outline for keyboard users.
+
+### Stretch goal: dark theme
+A `@media (prefers-color-scheme: dark)` block overrides only the `:root` custom properties (brand, accent, surface, card, text, border, category tints, and up/down trend colors) with darker equivalents. Because every other rule in the stylesheet references these variables rather than hard-coded colors, the whole dashboard switches themes automatically based on the user's system preference — no other CSS changes needed.
+
+## Not included (by design)
+No JavaScript and no real data wiring — this is purely the visual shell. Functionality (adding expenses, calculating totals, etc.) comes in a later week.

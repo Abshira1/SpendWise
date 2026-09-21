@@ -1,96 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Budget Tracker</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-      <div class="page-container">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpendWise — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-        <header>
-            <img src="https://cdn-icon-png.flaticon.com/512/2331966.png" alt="SpendWise logo" width="50">
-            <h1>My Budget Tracker</h1>
-            <p>Track your income and expenses in one place.</p>
-        </header>
+  <div class="dashboard">
 
-        <section class="add-expense">
-          <h2>Add Expense</h2>
-          <form>
-            <label for="expense-name">Expense name</label>
-            <input type="text" id="expense-name" name="expense-name" placeholder="e.g. Groceries">
-
-            <label for="expense-amount">Amount</label>
-            <input type="number" id="expense-amount" name="expense-amount"placeholder="0.00">
-
-            <label for="expense-category">Category</label>
-            <select id="expense-category" name="expense-category"> 
-                <option value="food">Food</option>
-                <option value="transport">Transport</option>
-                <option value="rent">Rent</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="other">Other</option> 
-            </select>
-                
-            <button type="button">Add Expense</button>
-          </form>
-        </section>
-
-        <section class="your-expenses">
-            <h2>Your Expenses</h2>
-            <table class="expense-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Category</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Groceries</td>
-                <td>$45.00</td>
-                <td>Food</td>
-                <td>2026-09-01</td>
-            </tr>
-            <tr>
-                <td>Bus Fare</td>
-                <td>$5.50</td>
-                <td>Transport</td>
-                <td>2026-09-02</td>
-            </tr>
-            <tr>
-                <td>Rent</td>
-                <td>$300.00</td>
-                <td>Rent</td>
-                <td>2026-09-03</td>
-            </tr>
-            <tr>
-                <td>Movie Night</td>
-                <td>$12.00</td>
-                <td>Entertainment</td>
-                <td>2026-09-05</td>
-            </tr>
-            <tr>
-                <td>Phone Airtime</td>
-                <td>$10.00</td>
-                <td>Other</td>
-                <td>2026-09-06</td>
-            </tr>
-        </tbody>
-            </table>
-
-            <details>
-                <summary>How to use this tracker</summary>
-                <p> Fill in the expense name, amount, category in the form above, the click "Add Expense" to add it to your list. Once JavaScript is added in the later week, your entries will automatically appear in the table below.</p>
-            </details>
-            
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/HQzoZfc3GwQ" title="Budgeting Tips" frameborder="0" allowfullscreen></iframe>
-        
-        </section>
+    <!-- Sidebar / Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-mark">S</span>
+        <span class="brand-name">SpendWise</span>
       </div>
-    </body>
-    </html>
 
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-link active">
+          <span class="nav-icon">⌂</span>
+          <span>Overview</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">↔</span>
+          <span>Transactions</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">▤</span>
+          <span>Categories</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">◔</span>
+          <span>Budgets</span>
+        </a>
+        <a href="#" class="nav-link">
+          <span class="nav-icon">✎</span>
+          <span>Reports</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="#" class="nav-link">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-title">
+        <h1>Overview</h1>
+        <p>Friday, 19 September</p>
+      </div>
+
+      <div class="header-actions">
+        <div class="header-total">
+          <span class="total-label">Spent this month</span>
+          <span class="total-value">KES 42,300</span>
+        </div>
+        <button class="btn-primary">+ Add Expense</button>
+        <div class="header-avatar">AM</div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="main">
+      <section class="cards-grid">
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" style="background:var(--color-food-bg)">🍽</span>
+            <span class="card-trend up">▲ 8%</span>
+          </div>
+          <h3 class="card-category">Food</h3>
+          <p class="card-amount">KES 9,450</p>
+          <p class="card-sub">of KES 12,000 budget</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" style="background:var(--color-transport-bg)">🚌</span>
+            <span class="card-trend down">▼ 3%</span>
+          </div>
+          <h3 class="card-category">Transport</h3>
+          <p class="card-amount">KES 5,120</p>
+          <p class="card-sub">of KES 6,000 budget</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" style="background:var(--color-rent-bg)">🏠</span>
+            <span class="card-trend flat">— 0%</span>
+          </div>
+          <h3 class="card-category">Rent</h3>
+          <p class="card-amount">KES 15,000</p>
+          <p class="card-sub">of KES 15,000 budget</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" style="background:var(--color-entertainment-bg)">🎬</span>
+            <span class="card-trend up">▲ 22%</span>
+          </div>
+          <h3 class="card-category">Entertainment</h3>
+          <p class="card-amount">KES 3,600</p>
+          <p class="card-sub">of KES 3,000 budget</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" style="background:var(--color-savings-bg)">💰</span>
+            <span class="card-trend up">▲ 12%</span>
+          </div>
+          <h3 class="card-category">Savings</h3>
+          <p class="card-amount">KES 6,000</p>
+          <p class="card-sub">of KES 6,000 goal</p>
+        </article>
+
+        <article class="card" tabindex="0">
+          <div class="card-top">
+            <span class="card-icon" style="background:var(--color-utilities-bg)">💡</span>
+            <span class="card-trend down">▼ 5%</span>
+          </div>
+          <h3 class="card-category">Utilities</h3>
+          <p class="card-amount">KES 3,130</p>
+          <p class="card-sub">of KES 4,000 budget</p>
+        </article>
+
+      </section>
+    </main>
+
+  </div>
+
+</body>
+</html>
