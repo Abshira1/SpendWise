@@ -84,3 +84,29 @@ The code is split into focused, reusable functions:
 - `runSpendWise()` — runs the above functions in order
 
 This structure keeps each part of the program doing one job, making the code easier to read, test, and expand later.
+
+# SpendWise – Interactive Budget Tracker
+
+## Improvements this week
+SpendWise went from a static page to a working app. Users can set a budget, add and delete expenses, and see totals, remaining balance, and feedback update instantly.
+
+## How conditionals are used
+`getFeedback()` uses `if / else if / else` to compare total spending to the budget: over budget (red), 80%+ used (warning), or on track (green). `if` is also used to validate form input.
+
+## How arrays are used to store data
+Expenses are stored in an `expenses` array of objects: `{ name, amount, category }`. `push()` adds a record and `splice()` removes one.
+
+## Loops
+A `for` loop in `calculateTotal()` adds up all amounts. A `for...of` loop builds the category totals, and `forEach` creates the table rows.
+
+## How the DOM is updated
+`render()` uses `textContent`, `innerHTML`, and `createElement` / `appendChild` to refresh the dashboard cards, the expenses table, the feedback message, and the category summary.
+
+## How user interactions are handled
+`addEventListener` handles the budget form submit, expense form submit, and Delete button clicks (event delegation on the table body). `preventDefault()` stops the page from reloading.
+
+## Challenges and how I solved them
+- **Page reloading on submit:** fixed with `e.preventDefault()`.
+- **Delete buttons on dynamic rows:** fixed with event delegation and `data-index`.
+- **Keeping everything in sync:** I put all display updates in one `render()` function called after every change.
+-

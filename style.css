@@ -362,4 +362,42 @@ button {
     --color-up: #e08a63;
     --color-down: #6fbf94;
   }
+
+  :root {
+  --brand: #1b7f5c;
+  --accent: #f4a261;
+  --surface: #f5f7f6;
+  --text: #1f2933;
+  --text-muted: #6b7780;
+  --danger: #d64545;
+  --warning: #e9a23b;
+  --success: #1b7f5c;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: var(--surface); color: var(--text); }
+.container { max-width: 900px; margin: 0 auto; padding: 20px; }
+header { text-align: center; margin-bottom: 20px; }
+header h1 { color: var(--brand); margin-bottom: 4px; }
+header p { color: var(--text-muted); margin: 0; }
+section { background: #fff; padding: 16px; border-radius: 10px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+h2 { margin-top: 0; font-size: 1.2rem; }
+form { display: flex; flex-wrap: wrap; gap: 8px; }
+input, select { flex: 1 1 150px; padding: 10px; border: 1px solid #ccd3d8; border-radius: 6px; }
+button { padding: 10px 16px; background: var(--brand); color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+button:hover { opacity: .9; }
+#dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; background: none; box-shadow: none; padding: 0; }
+.card { background: #fff; padding: 14px; border-radius: 10px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.card h3 { margin: 0 0 6px; font-size: .9rem; color: var(--text-muted); }
+.card p { margin: 0; font-size: 1.3rem; font-weight: bold; }
+.feedback { padding: 12px; border-radius: 8px; font-weight: bold; background: #e8eceb; }
+.feedback.good { background: #dff3ea; color: var(--success); }
+.feedback.warn { background: #fdf0d8; color: #8a5a00; }
+.feedback.bad { background: #fbe0e0; color: var(--danger); }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid #e3e8eb; }
+th { color: var(--text-muted); }
+.delete-btn { background: var(--danger); padding: 6px 10px; }
+#empty-msg { color: var(--text-muted); }
+#category-list { list-style: none; padding: 0; margin: 0; }
+#category-list li { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eef1f2; }
 }
