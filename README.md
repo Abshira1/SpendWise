@@ -1,112 +1,55 @@
-# SpendWise — Dashboard Shell (Week 4)
-
-This week rebuilds SpendWise's layout as a dashboard shell using CSS Grid and Flexbox, with no functionality yet — just a clean, responsive visual structure.
-
-## What I built
-
-- **`index.html`** — the dashboard markup: a sidebar, a header, and six category cards with static, realistic financial content (Food, Transport, Rent, Entertainment, Savings, Utilities).
-- **`style.css`** — all layout and styling, including the theme variables.
-- **`README.md`** — this file.
-
-## How it's structured
-
-### Overall layout — CSS Grid
-The `.dashboard` element is a CSS Grid with named areas:
-```
-"sidebar header"
-"sidebar main"
-```
-This lays out the sidebar down the left side and stacks the header above the main content on the right, all without any absolute positioning. On small screens (≤720px) the grid switches to a single column and stacks header → sidebar → main.
-
-### Internal arrangement — Flexbox
-- **Sidebar**: a flex column holding the brand mark, the nav links, and a footer link, so they space out evenly from top to bottom.
-- **Header**: a flex row with `justify-content: space-between`, splitting the page title on the left from the total spent, "Add Expense" button, and avatar on the right.
-- **Each card**: a flex column internally (icon/trend row, category name, amount, sub-label), while the six cards themselves sit in a CSS Grid (`repeat(auto-fit, minmax(220px, 1fr))`) so they wrap responsively.
-
-### Theme — CSS custom properties
-All colors are defined once on `:root` in `style.css` and reused throughout:
-- `--color-brand` — deep teal, used for the sidebar and primary button
-- `--color-accent` — warm gold, used for the brand mark and avatar
-- `--color-surface` — the page background
-- `--color-card` — card and header background
-- `--color-text-primary` / `--color-text-secondary` — main and muted text
-- A set of soft tint variables (`--color-food-bg`, `--color-transport-bg`, etc.) for each category icon's background
-
-### Responsive design
-A media query at `max-width: 768px` collapses the grid to a single column — the header moves to the top, followed by the sidebar, then the main content — and the card grid drops to one column per row. Verified using the browser's DevTools Device Toolbar.
-
-### Card micro-interactions
-Each card has a `transition` on `transform` and `box-shadow` (200ms, under the 250ms limit). On `:hover` and `:focus-within`, a card lifts slightly (`translateY(-4px)`) and gains a soft shadow. Cards have `tabindex="0"` so they're reachable by keyboard, and `:focus-within` also adds a visible accent-colored outline for keyboard users.
-
-### Stretch goal: dark theme
-A `@media (prefers-color-scheme: dark)` block overrides only the `:root` custom properties (brand, accent, surface, card, text, border, category tints, and up/down trend colors) with darker equivalents. Because every other rule in the stylesheet references these variables rather than hard-coded colors, the whole dashboard switches themes automatically based on the user's system preference — no other CSS changes needed.
-
-## Not included (by design)
-No JavaScript and no real data wiring — this is purely the visual shell. Functionality (adding expenses, calculating totals, etc.) comes in a later week.
-
-## Week 6: JavaScript Foundation
-
 # SpendWise
 
-SpendWise is a personal budget and expense tracker web app. It lets a user view spending by category (Food, Transport, Rent, etc.), compare spending against budgets, and now — as of this week — collect and process real budget data using JavaScript.
+SpendWise is a personal budget and expense tracker built with HTML, CSS, and JavaScript. Users set a monthly budget, add expenses, and see how much they have left, with color-coded feedback when spending gets close to or goes over the budget.
 
-## What This Project Does
+## Live Website
+[Add your Netlify URL here after Week 7]
 
-SpendWise displays a dashboard overview of monthly spending across categories. This week's update adds the JavaScript logic that lets the app collect a user's monthly budget and a single expense, calculate the user's remaining balance, and display the results.
+## GitHub Repository
+[Add your GitHub repo link here]
 
-## JavaScript Concepts Implemented
+## Technologies Used
+- HTML
+- CSS (Flexbox, Grid, custom properties)
+- JavaScript
+- Git and GitHub
 
-- **Variables** — storing budget and expense data
-- **Data types** — numbers (budget/amount) and strings (name/category)
-- **User input** — collected via `prompt()`
-- **Calculations** — subtracting expenses from the budget
-- **Functions** — organizing the app's logic into reusable pieces
+## Features
+- Set a monthly budget
+- Add expenses with a name, amount, and category
+- See total spent, remaining balance, and number of expenses
+- Color-coded feedback: over budget (red), 80% or more used (warning), on track (green)
+- Delete expenses
+- Spending summary by category
 
-## How Variables Are Used
+## Project Structure
+- `index.html`: the page layout and dashboard
+- `style.css`: layout, colors, and responsive design
+- `script.js`: budget logic, expenses, and page updates
+- `README.md`: project documentation
 
-Variables such as `monthlyBudget`, `expenseName`, `expenseAmount`, `expenseCategory`, and `remainingBalance` store the key budgeting information the app works with. These are declared at the top of `script.js` and updated as the user provides input.
+## Week 4: Dashboard Layout
+- **CSS Grid** sets the overall layout with a sidebar, header, and main content area.
+- **Flexbox** arranges the sidebar, header, and card contents.
+- **CSS custom properties** on `:root` define the theme colors, so they are changed in one place.
+- **Responsive design:** on screens 768px wide or smaller, the layout stacks into one column.
+- **Card hover and focus effects** lift each card slightly, with keyboard focus support.
+- **Dark theme:** a `prefers-color-scheme: dark` block swaps the theme colors automatically.
 
-## How User Input Is Collected
+## Week 6: Interactive Behavior
+- **Conditionals:** `getFeedback()` uses `if / else if / else` to choose the budget message and color.
+- **Arrays:** expenses are stored in an `expenses` array of objects (`{ name, amount, category }`). `push()` adds an expense and `splice()` removes one.
+- **Loops:** a `for` loop adds up the total, a `for...of` loop builds the category totals, and `forEach` creates the table rows.
+- **DOM updates:** `render()` updates the cards, expenses table, feedback message, and category summary after every change.
+- **Event listeners:** `addEventListener` handles the budget form, the expense form, and the Delete buttons. `preventDefault()` stops the page from reloading on submit.
 
-The app uses JavaScript's `prompt()` function to ask the user for their monthly budget, the name of an expense, its amount, and its category. Each response is stored in the matching variable so it can be used in calculations later.
+## Challenges and How I Solved Them
+- **Page reloading on form submit:** fixed with `e.preventDefault()`.
+- **Delete buttons on dynamically created rows:** fixed with event delegation and a `data-index` attribute on each button.
+- **Keeping the page in sync:** all display updates run in one `render()` function that is called after every change.
 
-## How Calculations Are Performed
+## Deployment (Week 7)
+The site is deployed on Netlify. Every push to the GitHub repo updates the live site automatically.
 
-The `calculateRemainingBalance()` function takes the budget and the expense amount, then subtracts one from the other to determine how much money is left. This keeps the math logic separate from the rest of the app.
-
-## How Functions Help Organize the Code
-
-The code is split into focused, reusable functions:
-- `getBudgetInput()` — collects the budget from the user
-- `getExpenseInput()` — collects the expense details from the user
-- `calculateRemainingBalance()` — performs the budget calculation
-- `displayResults()` — logs a clearly labeled summary to the console
-- `runSpendWise()` — runs the above functions in order
-
-This structure keeps each part of the program doing one job, making the code easier to read, test, and expand later.
-
-# SpendWise – Interactive Budget Tracker
-
-## Improvements this week
-SpendWise went from a static page to a working app. Users can set a budget, add and delete expenses, and see totals, remaining balance, and feedback update instantly.
-
-## How conditionals are used
-`getFeedback()` uses `if / else if / else` to compare total spending to the budget: over budget (red), 80%+ used (warning), or on track (green). `if` is also used to validate form input.
-
-## How arrays are used to store data
-Expenses are stored in an `expenses` array of objects: `{ name, amount, category }`. `push()` adds a record and `splice()` removes one.
-
-## Loops
-A `for` loop in `calculateTotal()` adds up all amounts. A `for...of` loop builds the category totals, and `forEach` creates the table rows.
-
-## How the DOM is updated
-`render()` uses `textContent`, `innerHTML`, and `createElement` / `appendChild` to refresh the dashboard cards, the expenses table, the feedback message, and the category summary.
-
-## How user interactions are handled
-`addEventListener` handles the budget form submit, expense form submit, and Delete button clicks (event delegation on the table body). `preventDefault()` stops the page from reloading.
-
-## Challenges and how I solved them
-- **Page reloading on submit:** fixed with `e.preventDefault()`.
-- **Delete buttons on dynamic rows:** fixed with event delegation and `data-index`.
-- **Keeping everything in sync:** I put all display updates in one `render()` function called after every change.
--
+## Author
+Abshira

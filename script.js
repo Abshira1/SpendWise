@@ -1,63 +1,10 @@
-// ===== SpendWise: JavaScript Foundation (Week 6) =====
-
-// Confirms the script is linked and running
-console.log("SpendWise script loaded successfully.");
-
-// ----- 2. Store Application Data -----
-// Variables representing key budgeting info
-let monthlyBudget = 0;      // total budget the user sets
-let expenseName = "";       // name of an expense (e.g. "Groceries")
-let expenseAmount = 0;      // cost of that expense
-let expenseCategory = "";   // category of the expense (e.g. "Food")
-let remainingBalance = 0;   // calculated after budget - expense
-
-// ----- 3. Collect User Input -----
-function getBudgetInput() {
-  // prompt() returns a string, so we convert it to a number
-  monthlyBudget = parseFloat(prompt("Enter your monthly budget (KES):"));
-  return monthlyBudget;
-}
-
-function getExpenseInput() {
-  expenseName = prompt("Enter the expense name (e.g. Groceries):");
-  expenseAmount = parseFloat(prompt("Enter the expense amount (KES):"));
-  expenseCategory = prompt("Enter the expense category (e.g. Food, Transport):");
-}
-
-// ----- 4. Perform Budget Calculations -----
-// ----- 5. Create Reusable Functions -----
-function calculateRemainingBalance(budget, amountSpent) {
-  return budget - amountSpent;
-}
-
-// ----- 6. Display Results -----
-function displayResults() {
-  console.log("----- SpendWise Budget Summary -----");
-  console.log("Monthly Budget: KES " + monthlyBudget);
-  console.log("Expense Name: " + expenseName);
-  console.log("Expense Category: " + expenseCategory);
-  console.log("Expense Amount: KES " + expenseAmount);
-  console.log("Remaining Balance: KES " + remainingBalance);
-  console.log("-------------------------------------");
-}
-
-// ----- Run the program -----
-function runSpendWise() {
-  getBudgetInput();
-  getExpenseInput();
-  remainingBalance = calculateRemainingBalance(monthlyBudget, expenseAmount);
-  displayResults();
-}
-
-runSpendWise();
-
-// ===== Data (arrays store multiple records) =====
-let budget = 0;
-let expenses = [];
-
-// ===== DOM references =====
 const budgetForm = document.getElementById("budget-form");
 const budgetInput = document.getElementById("budget-input");
+const budgetDisplay = document.getElementById("budget-display");
+const totalDisplay = document.getElementById("total-display");
+const remainingDisplay = document.getElementById("remaining-display");
+const countDisplay = document.getElementById("count-display");
+const feedbackEl = document.getElementById("feedback");
 const expenseForm = document.getElementById("expense-form");
 const nameInput = document.getElementById("name");
 const amountInput = document.getElementById("amount");
@@ -65,100 +12,104 @@ const categoryInput = document.getElementById("category");
 const expenseList = document.getElementById("expense-list");
 const emptyMsg = document.getElementById("empty-msg");
 const categoryList = document.getElementById("category-list");
-const feedback = document.getElementById("feedback");
 
-// ===== Loops: process stored records =====
-function calculateTotal() {
+let budget = 0;
+let expenses = [];
+
+// Set the budget
+budgetForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const value = Number(budgetInput.value);
+  if (value <= 0 || isNaN(value)) return;
+
+  budget = value;
+  budgetInput.value = "";
+  render();
+});
+
+// Add an expense
+expenseForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const name = nameInput.value.trim();
+  const amount = Number(amountInput.value);
+  const category = categoryInput.value;
+  if (name === "" || amount <= 0 || isNaN(amount)) return;
+
+  expenses.push({ name: name, amount: amount, category: category });
+  nameInput.value = "";
+  amountInput.value = "";
+  render();
+});
+
+// Delete an expense (event delegation on the table body)
+expenseList.addEventListener("click", function (e) {
+  if (e.target.classList.contains("delete-btn")) {
+    deleteExpense(Number(e.target.dataset.index));
+  }
+});
+
+function deleteExpense(index) {
+  expenses.splice(index, 1);
+  render();
+}
+
+// Choose the message and color using conditionals
+function getFeedback(total, remaining) {
+  if (budget === 0) {
+    return { text: "Set a budget to get started.", cls: "feedback" };
+  } else if (remaining < 0) {
+    return { text: "You are over budget!", cls: "feedback bad" };
+  } else if (total >= budget * 0.8) {
+    return { text: "Careful, you've used 80% or more of your budget.", cls: "feedback warn" };
+  } else {
+    return { text: "You're on track.", cls: "feedback good" };
+  }
+}
+
+// Update the whole page from the current data
+function render() {
+  // Total with a loop
   let total = 0;
   for (let i = 0; i < expenses.length; i++) {
     total += expenses[i].amount;
   }
-  return total;
-}
+  const remaining = budget - total;
 
-function totalsByCategory() {
-  const totals = {};
-  for (const expense of expenses) {
-    totals[expense.category] = (totals[expense.category] || 0) + expense.amount;
-  }
-  return totals;
-}
+  budgetDisplay.textContent = "KES " + budget;
+  totalDisplay.textContent = "KES " + total;
+  remainingDisplay.textContent = "KES " + remaining;
+  countDisplay.textContent = expenses.length;
 
-// ===== Conditionals: budgeting feedback =====
-function getFeedback(total) {
-  if (budget === 0) {
-    return { text: "Set a budget to get started.", level: "" };
-  }
-  const percent = (total / budget) * 100;
-  if (total > budget) {
-    return { text: "Over budget by KES " + (total - budget) + ". Time to cut back!", level: "bad" };
-  } else if (percent >= 80) {
-    return { text: "Careful! You've used " + percent.toFixed(0) + "% of your budget.", level: "warn" };
-  } else {
-    return { text: "You're doing well. " + percent.toFixed(0) + "% of your budget used.", level: "good" };
-  }
-}
+  const fb = getFeedback(total, remaining);
+  feedbackEl.textContent = fb.text;
+  feedbackEl.className = fb.cls;
 
-// ===== DOM updates =====
-function render() {
-  const total = calculateTotal();
-
-  document.getElementById("budget-display").textContent = "KES " + budget;
-  document.getElementById("total-display").textContent = "KES " + total;
-  document.getElementById("remaining-display").textContent = "KES " + (budget - total);
-  document.getElementById("count-display").textContent = expenses.length;
-
-  const result = getFeedback(total);
-  feedback.textContent = result.text;
-  feedback.className = "feedback " + result.level;
-
+  // Expense table
   expenseList.innerHTML = "";
+  emptyMsg.style.display = expenses.length === 0 ? "block" : "none";
+
   expenses.forEach(function (expense, index) {
     const row = document.createElement("tr");
     row.innerHTML =
       "<td>" + expense.name + "</td>" +
       "<td>" + expense.category + "</td>" +
       "<td>KES " + expense.amount + "</td>" +
-      '<td><button class="delete-btn" data-index="' + index + '">Delete</button></td>';
+      "<td><button class='delete-btn' data-index='" + index + "'>Delete</button></td>";
     expenseList.appendChild(row);
   });
-  emptyMsg.style.display = expenses.length === 0 ? "block" : "none";
 
+  // Category summary with for...of
   categoryList.innerHTML = "";
-  const totals = totalsByCategory();
+  const totals = {};
+  for (const expense of expenses) {
+    totals[expense.category] = (totals[expense.category] || 0) + expense.amount;
+  }
   for (const category in totals) {
     const li = document.createElement("li");
-    li.innerHTML = "<span>" + category + "</span><span>KES " + totals[category] + "</span>";
+    li.textContent = category + ": KES " + totals[category];
     categoryList.appendChild(li);
   }
 }
 
-// ===== Events: user interactions =====
-budgetForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  budget = Number(budgetInput.value);
-  budgetForm.reset();
-  render();
-});
-
-expenseForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const name = nameInput.value.trim();
-  const amount = Number(amountInput.value);
-  if (name === "" || amount <= 0) {
-    alert("Please enter a valid name and amount.");
-    return;
-  }
-  expenses.push({ name: name, amount: amount, category: categoryInput.value });
-  expenseForm.reset();
-  render();
-});
-
-expenseList.addEventListener("click", function (e) {
-  if (e.target.classList.contains("delete-btn")) {
-    expenses.splice(Number(e.target.dataset.index), 1);
-    render();
-  }
-});
-
+// Show the starting state on load
 render();
