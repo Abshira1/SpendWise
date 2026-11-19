@@ -3,10 +3,10 @@
 SpendWise is a personal budget and expense tracker built with HTML, CSS, and JavaScript. Users set a monthly budget, add expenses, and see how much they have left, with color-coded feedback when spending gets close to or goes over the budget.
 
 ## Live Website
-[Add your Netlify URL here after Week 7]
+https://spendwise-r8dg.netlify.app
 
 ## GitHub Repository
-[Add your GitHub repo link here]
+https://github.com/Abshira1/SpendWise
 
 ## Technologies Used
 - HTML
